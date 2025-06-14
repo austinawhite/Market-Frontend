@@ -12,7 +12,7 @@ function Register() {
         setError("");        
 
         try {
-            const response = await fetch('http://localhost:3000/users/', {
+            const response = await fetch('http://localhost:3000/users', {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
@@ -51,8 +51,8 @@ function Register() {
                     Password: <input 
                     type="password" 
                     value={password} 
-                    minLength={5}
-                    title="Your password must be at least 5 characters long."
+                    minLength={4}
+                    title="Your password must be at least 4 characters long."
                     required 
                     onChange={(e) => setPassword(e.target.value)} />
                 </label>
