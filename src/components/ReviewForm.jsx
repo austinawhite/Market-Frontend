@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+//! Need to connect this to the backend 
 //! Need to make sure that the user can not leave multiple reviews for the same product, should only be able to edit or remove the existing review 
 //! When review is submitted, hide form or give option to edit existing review 
 
