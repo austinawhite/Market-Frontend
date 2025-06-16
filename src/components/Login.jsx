@@ -1,7 +1,7 @@
 import {useState} from 'react'
 import { useNavigate, Link } from 'react-router-dom';
 
-function LogIn({setToken}){
+export default function LogIn({setToken}){
     const navigate = useNavigate();
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
@@ -12,7 +12,8 @@ function LogIn({setToken}){
         setError("");
 
         try {
-            const response = await fetch('http://localhost:3000/users', {
+            const response = await fetch('http://localhost:3000/users/login', {
+                mode: 'no-cors',
                 method: "POST",
                 headers: {
                 "Content-Type": "application/json",
@@ -56,11 +57,9 @@ function LogIn({setToken}){
                 />
             </label>
             <button className="login-button" type="submit">Login</button>
-            <p><button><Link className="nav-link" to="/register">Register</Link> </button> if you don't have an account.</p>
         </form>
         </div>
         </>
         )
     
 }
-export default LogIn

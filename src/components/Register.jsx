@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
-function Register() {
+export default function Register() {
     const navigate = useNavigate();
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
@@ -12,16 +12,17 @@ function Register() {
         setError("");        
 
         try {
-            const response = await fetch('http://localhost:3000/users', {
+            const response = await fetch('http://localhost:3000/users/register', {
+                mode: 'no-cors',
                 method: "POST",
                 headers: {
-                  "Content-Type": "application/json",
+                "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
                 username: username,
                 password: password,
                 }),
-              });
+            });
               
             const result = await response.json();
             if (response.ok) {
@@ -56,12 +57,9 @@ function Register() {
                     required 
                     onChange={(e) => setPassword(e.target.value)} />
                 </label>
-                <button className="register-button">Submit</button>
-                <p><button><Link className="nav-link"to="/login">Login</Link> </button> if you have an account.</p>
+                <button className="register-button">Register</button>
             </form>
             </div>
             </>
           );
 }
-
-export default Register
