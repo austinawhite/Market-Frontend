@@ -19,7 +19,8 @@ export default function Account({ token }) {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`,
             },
-        });       
+        });
+       
         setUser(result);
       } catch (error) {
         console.error("Error loading user details: ", error);
