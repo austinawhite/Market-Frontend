@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 
 export default function Register() {
     const navigate = useNavigate();
@@ -13,7 +13,6 @@ export default function Register() {
 
         try {
             const response = await fetch('http://localhost:3000/users/register', {
-                mode: 'no-cors',
                 method: "POST",
                 headers: {
                 "Content-Type": "application/json",
@@ -27,6 +26,7 @@ export default function Register() {
             const result = await response.json();
             if (response.ok) {
               navigate('/login');
+              
             } else {
               setError("Failed to register" || result.error);
             }
