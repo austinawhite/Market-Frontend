@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 
 export default function LogIn({setToken}){
     const navigate = useNavigate();
@@ -11,9 +11,8 @@ export default function LogIn({setToken}){
         e.preventDefault();
         setError("");
 
-        try {
+        
             const response = await fetch('http://localhost:3000/users/login', {
-                mode: 'no-cors',
                 method: "POST",
                 headers: {
                 "Content-Type": "application/json",
@@ -30,9 +29,7 @@ export default function LogIn({setToken}){
             }
             setToken(result.token);
             navigate('/');
-          } catch (error) {
-            setError(error.message);
-          }
+         
         }
 
         return(
