@@ -8,7 +8,7 @@ import Account from './components/Account'
 import Products from './components/Products'
 
 function App() {
-  const [products, setProducts] = useState(0)
+  const [products, setProducts] = useState([])
   const [token, setToken] = useState(() => localStorage.getItem("token"));
 
   useEffect(() => {
@@ -29,7 +29,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path='/users/me' element={<Account token={token} />} />
         <Route path='/account' element={token ? <Account token={token} /> : <Navigate to="/login" />} />
-        <Route path="/products" element={<Products />} />
+        <Route path="/products" element={<Products products={products} setProducts={setProducts} />} />
       </Routes>
     </div>
     <div>

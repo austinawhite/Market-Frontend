@@ -6,6 +6,9 @@ function Products({products, setProducts}) {
     useEffect(()=>{
         const getProducts = async () =>{
             const res = await fetch("http://localhost:3000/products")
+            const data = await res.json()
+
+          setProducts(data);
         }
         getProducts();
         console.log(products)
