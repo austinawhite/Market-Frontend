@@ -2,16 +2,19 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Products({products, setProducts}) {
+
+    const [searchTerm, setSearchTerm] = useState('');
+    const [allProducts, setAllProducts] = useState([]);
     
     useEffect(()=>{
         const getProducts = async () =>{
             const res = await fetch("http://localhost:3000/products")
             const data = await res.json()
 
+          setAllProducts(data)  
           setProducts(data);
         }
         getProducts();
-        console.log(products)
     }, [])
 
     const navigate = useNavigate();
@@ -20,11 +23,44 @@ function Products({products, setProducts}) {
           navigate(`/products/${product.id}`);
         };
 
+    const handleSearch = (event) => {
+        const searchTerm = event.target.value;
+        setSearchTerm(searchTerm);
+          
+        const results = allProducts.filter(product =>
+            product.title.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setProducts(results);
+        };
+
+      const handleClear = () => {
+            setSearchTerm('');
+            setProducts(allProducts);
+          };    
+         
+      useEffect(() => {
+            if (location.pathname === '/products') {
+              setProducts(allProducts); 
+              setSearchTerm('');
+            }
+          }, [location]);
+
 return(
     <>
     <div>
         <h1>Welcome to our Children's Bookstore!</h1>
-        <p>Please browse our current selection:</p>
+        <p>Please browse our current selection or search for a book below:</p>
+        <div>  
+          <input
+            type="text"
+            placeholder="Search..."
+            value={searchTerm}
+            onChange={handleSearch}
+            />
+        </div>
+        <div>
+          <button onClick={handleClear}>Reset</button>
+        </div> 
     </div>
            {
             products.map((product)=>
