@@ -6,7 +6,6 @@ import LogIn from './components/Login'
 import Navigations from './components/Navigations'
 import Account from './components/Account'
 import Products from './components/Products'
-import SingleProduct from './components/SingleProduct'
 
 function App() {
   const [products, setProducts] = useState([])
@@ -31,8 +30,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path='/users/me' element={<Account token={token} />} />
         <Route path='/account' element={token ? <Account token={token} /> : <Navigate to="/login" />} />
-        <Route path="/products" element={<Products products={products} setProducts={setProducts} />} />
-        <Route path="/products/:id" element={<SingleProduct product={product} setProduct={setProduct} token={token} />} />
+        <Route path="/products" element={<Products />} />
       </Routes>
     </div>
     <div>
