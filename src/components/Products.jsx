@@ -14,6 +14,12 @@ function Products({products, setProducts}) {
         console.log(products)
     }, [])
 
+    const navigate = useNavigate();
+
+    const handleClick = (product) => {
+          navigate(`/products/${product.id}`);
+        };
+
 return(
     <>
     <div>
@@ -25,8 +31,9 @@ return(
                 <div key={product.id}>
                     <h2>{product.title}</h2>
                     <h3>{product.description}</h3>
+                    <h3>{product.price}</h3>
                     <div>
-                        <button>Details</button>
+                        <button onClick={()=> handleClick(product)}>Details</button>
                     </div>
                 </div>
             )
