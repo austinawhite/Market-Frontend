@@ -14,20 +14,18 @@ export default function Account({ token }) {
     async function getUser() {
       try {
         const result = await fetch(`http://localhost:3000/users/me`, {
-            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`,
             },
         });
-       
-        setUser(result);
+        const data = await result.json();
+        setUser(data);
       } catch (error) {
         console.error("Error loading user details: ", error);
       }
     }
     getUser();
-  }, [token, navigate]);
+  }, []);
 
    return(
     <>
