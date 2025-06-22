@@ -7,6 +7,8 @@ import Navigations from './components/Navigations'
 import Account from './components/Account'
 import Products from './components/Products'
 import SingleProduct from './components/SingleProduct'
+import Orders from './components/Orders';
+
 
 function App() {
   const [products, setProducts] = useState([])
@@ -33,6 +35,7 @@ function App() {
         <Route path='/account' element={token ? <Account token={token} /> : <Navigate to="/login" />} />
         <Route path="/products" element={<Products products={products} setProducts={setProducts} />} />
         <Route path="/products/:id" element={<SingleProduct product={product} setProduct={setProduct} token={token} />} />
+        <Route path="/orders" element={<Orders token={token} />} />
       </Routes>
     </div>
     <div>
