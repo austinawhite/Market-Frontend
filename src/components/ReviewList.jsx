@@ -1,15 +1,14 @@
 import { useState, useEffect } from "react";
 
-// Enhanced ReviewList that fetches reviews from your backend
-// Shows all reviews for a product and allows users to edit their own reviews
-
 export default function ReviewList({ productId, currentUserId, onEditReview }) {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetchReviews();
+    if (productId) {
+      fetchReviews();
+    }
   }, [productId]);
 
   const fetchReviews = async () => {
