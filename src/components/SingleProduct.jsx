@@ -64,3 +64,4 @@ function SingleProduct({ token, product, setProduct }) {
 }
 
 export default SingleProduct;
+
