@@ -18,6 +18,7 @@
     return(
         <>
         <h1>{product.title}</h1>
+        <img src={product.image_url} alt={product.title} style={{ width: "200px" }} />
         <p>Description: {product.description}</p>
         <p>Price: {product.price}</p>
         <div>

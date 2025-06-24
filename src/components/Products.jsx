@@ -66,6 +66,7 @@ return(
             products.map((product)=>
                 <div key={product.id}>
                     <h2>{product.title}</h2>
+                    <img src={product.image_url} alt={product.title} style={{ width: "200px" }} />
                     <h3>{product.price}</h3>
                     <div>
                         <button onClick={()=> handleClick(product)}>Details</button>
