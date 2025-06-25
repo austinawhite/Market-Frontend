@@ -78,7 +78,7 @@ export default function ReviewForm({ token, productId, existingReview, onReviewS
 
       const result = await response.json();
       
-      // Success feedback
+      // Form submitted
       alert(isEditing ? 'Review updated successfully!' : 'Thanks for your review!');
       
       // Reset form if creating new review
@@ -87,7 +87,7 @@ export default function ReviewForm({ token, productId, existingReview, onReviewS
         setComment('');
       }
       
-      // Notify parent component to refresh reviews
+      // Refresh reviews
       if (onReviewSubmitted) {
         onReviewSubmitted(result);
       }
@@ -120,7 +120,6 @@ export default function ReviewForm({ token, productId, existingReview, onReviewS
 
       alert('Review deleted successfully!');
       
-      // Notify parent component
       if (onReviewSubmitted) {
         onReviewSubmitted(null, 'deleted');
       }
@@ -143,7 +142,7 @@ export default function ReviewForm({ token, productId, existingReview, onReviewS
     }
   };
 
-  // Generate star display for dropdown options
+  // Star display for dropdown options
   const getStarDisplay = (numStars) => {
     return '⭐️'.repeat(numStars);
   };
