@@ -22,7 +22,6 @@ function SingleProduct({ token, product, setProduct }) {
     getProduct();
   }, []);
 
- 
 
   useEffect(() => {
     if (token) {
