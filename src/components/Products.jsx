@@ -61,10 +61,11 @@ return(
         <div>
           <button onClick={handleClear}>Reset</button>
         </div> 
-    </div>
+    </div >
+    <div className="books">
            {
             products.map((product)=>
-                <div key={product.id}>
+                <div key={product.id} className="books-card">
                     <h2>{product.title}</h2>
                     <img src={product.image_url} alt={product.title} style={{ width: "200px" }} />
                     <h3>{product.price}</h3>
@@ -74,6 +75,7 @@ return(
                 </div>
             )
         }
+    </div>
     </>
     )
 }
