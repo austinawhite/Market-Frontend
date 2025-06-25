@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 
 export default function ReviewForm({ token, productId, existingReview, onReviewSubmitted }) {
   const [rating, setRating] = useState(0);
-  const [hoverRating, setHoverRating] = useState(0);
   const [comment, setComment] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -13,13 +12,18 @@ export default function ReviewForm({ token, productId, existingReview, onReviewS
       setRating(existingReview.rating);
       setComment(existingReview.comment);
       setIsEditing(true);
+    } else {
+      // Reset form when no existing review
+      setRating(0);
+      setComment('');
+      setIsEditing(false);
     }
   }, [existingReview]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validation - same as your original
+    // Validation
     if (rating === 0) {
       alert('Please select a rating');
       return;
@@ -34,8 +38,8 @@ export default function ReviewForm({ token, productId, existingReview, onReviewS
 
     try {
       const reviewData = {
-        productId: parseInt(productId),
-        rating,
+        product_id: parseInt(productId),
+        rating: parseInt(rating),
         comment: comment.trim()
       };
 
@@ -44,27 +48,32 @@ export default function ReviewForm({ token, productId, existingReview, onReviewS
       let method;
 
       if (isEditing && existingReview) {
-        // Update existing review - following your URL pattern
+        // Update existing review
         url = `http://localhost:3000/reviews/${existingReview.id}`;
         method = 'PUT';
       } else {
-        // Create new review - following your URL pattern
+        // Create new review
         url = 'http://localhost:3000/reviews';
         method = 'POST';
       }
+
+      console.log('Submitting review data:', reviewData); // Debug log
 
       response = await fetch(url, {
         method: method,
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}` // Following your auth pattern
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(reviewData)
       });
 
+      console.log('Response status:', response.status); // Debug log
+
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to submit review');
+        console.log('Error response:', errorData); // Debug log
+        throw new Error(errorData.error || errorData.message || 'Failed to submit review');
       }
 
       const result = await response.json();
@@ -134,41 +143,9 @@ export default function ReviewForm({ token, productId, existingReview, onReviewS
     }
   };
 
-  // Star rating functionality - same as your original
-  const handleStarClick = (starValue) => {
-    setRating(starValue);
-  };
-
-  const handleStarHover = (starValue) => {
-    setHoverRating(starValue);
-  };
-
-  const handleStarLeave = () => {
-    setHoverRating(0);
-  };
-
-  const renderStars = () => {
-    const stars = [];
-    for (let i = 1; i <= 5; i++) {
-      stars.push(
-        <button
-          key={i}
-          type="button"
-          className={`text-3xl transition-colors duration-200 ${
-            i <= (hoverRating || rating) 
-              ? 'text-yellow-400' 
-              : 'text-gray-300'
-          } hover:text-yellow-400 focus:outline-none focus:text-yellow-400`}
-          onClick={() => handleStarClick(i)}
-          onMouseEnter={() => handleStarHover(i)}
-          onMouseLeave={handleStarLeave}
-          aria-label={`Rate ${i} star${i !== 1 ? 's' : ''}`}
-        >
-          ★
-        </button>
-      );
-    }
-    return stars;
+  // Generate star display for dropdown options
+  const getStarDisplay = (numStars) => {
+    return '⭐️'.repeat(numStars);
   };
 
   return (
@@ -179,33 +156,96 @@ export default function ReviewForm({ token, productId, existingReview, onReviewS
       </div>
 
       <form onSubmit={handleSubmit}> 
-        <div id="rating">
-          <label>Rating</label>
-          {renderStars()}
-          <p>{rating > 0 ? `${rating} out of 5 stars` : 'Select a rating'}</p>
+        <div style={{ marginBottom: '15px' }}>
+          <label htmlFor="rating" style={{ display: 'block', marginBottom: '5px' }}>
+            Rating
+          </label>
+          <select
+            id="rating"
+            value={rating}
+            onChange={(e) => setRating(parseInt(e.target.value))}
+            style={{
+              padding: '8px',
+              fontSize: '16px',
+              borderRadius: '4px',
+              border: '1px solid #ccc',
+              minWidth: '200px'
+            }}
+          >
+            <option value={0}>Select a rating</option>
+            <option value={1}>1 - ⭐️</option>
+            <option value={2}>2 - ⭐️⭐️</option>
+            <option value={3}>3 - ⭐️⭐️⭐️</option>
+            <option value={4}>4 - ⭐️⭐️⭐️⭐️</option>
+            <option value={5}>5 - ⭐️⭐️⭐️⭐️⭐️</option>
+          </select>
         </div>
 
-        <div> 
-          <label htmlFor="comment">Review</label> 
+        <div style={{ marginBottom: '15px' }}> 
+          <label htmlFor="comment" style={{ display: 'block', marginBottom: '5px' }}>
+            Review
+          </label> 
           <textarea 
             id="comment" 
             value={comment} 
             onChange={(e) => setComment(e.target.value)}  
-            rows={4} 
+            rows={4}
+            style={{
+              width: '100%',
+              padding: '8px',
+              fontSize: '16px',
+              borderRadius: '4px',
+              border: '1px solid #ccc',
+              resize: 'vertical'
+            }}
+            placeholder="Tell us about your experience with this book..."
           /> 
         </div>
 
         <div style={{ display: 'flex', gap: '10px' }}>
-          <button type="submit" disabled={isSubmitting}>
+          <button 
+            type="submit" 
+            disabled={isSubmitting}
+            style={{
+              backgroundColor: isSubmitting ? '#ccc' : '#007bff',
+              color: 'white',
+              border: 'none',
+              padding: '10px 20px',
+              borderRadius: '4px',
+              cursor: isSubmitting ? 'not-allowed' : 'pointer'
+            }}
+          >
             {isSubmitting ? 'Submitting...' : (isEditing ? 'Update Review' : 'Submit Review')}
           </button>
           
-          <button type="button" onClick={handleCancel}>
+          <button 
+            type="button" 
+            onClick={handleCancel}
+            style={{
+              backgroundColor: '#6c757d',
+              color: 'white',
+              border: 'none',
+              padding: '10px 20px',
+              borderRadius: '4px',
+              cursor: 'pointer'
+            }}
+          >
             Cancel
           </button>
           
           {isEditing && (
-            <button type="button" onClick={handleDelete} style={{ backgroundColor: '#dc3545', color: 'white' }}>
+            <button 
+              type="button" 
+              onClick={handleDelete} 
+              style={{ 
+                backgroundColor: '#dc3545', 
+                color: 'white',
+                border: 'none',
+                padding: '10px 20px',
+                borderRadius: '4px',
+                cursor: 'pointer'
+              }}
+            >
               Delete Review
             </button>
           )}
