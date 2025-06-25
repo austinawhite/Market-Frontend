@@ -35,7 +35,6 @@ export default function Account({ token }) {
       <h1>Account Details</h1>
       <h3>Username: {user.username} </h3>
       <h4>Token: {token} </h4>
-      <h1>Orders</h1>
       <h1>Reviews</h1>
     </>
   ) : (
