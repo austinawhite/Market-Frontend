@@ -33,7 +33,7 @@ export default function LogIn({setToken}){
          
         }
         catch (err) {
-            setError('Invalid email or password. Please try again.');
+            setError('Invalid credentials. Please try again.');
             }
     }
         return(
