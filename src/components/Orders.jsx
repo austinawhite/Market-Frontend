@@ -32,13 +32,13 @@ export default function Orders({ token }) {
         <p>No orders yet.</p>
       ) : (
         <ul>
-          {orders.map(order => (
-            <li key={order.id} style={{ marginBottom: '1rem' }}>
-              <strong>Order #{order.id}</strong><br />
-              Date: {new Date(order.date).toLocaleDateString()}<br />
-              Note: {order.note || '—'}
-            </li>
-          ))}
+          {orders.map((order, index) => (
+  <li key={order.id} style={{ marginBottom: '1rem' }}>
+    <strong>Your Order #{index + 1}</strong><br />
+    Date: {new Date(order.date).toLocaleDateString()}<br />
+    Note: {order.note || '—'}
+  </li>
+))}
         </ul>
       )}
     </div>
