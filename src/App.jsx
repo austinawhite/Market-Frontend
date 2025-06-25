@@ -8,6 +8,7 @@ import Account from './components/Account'
 import Products from './components/Products'
 import SingleProduct from './components/SingleProduct'
 import Orders from './components/Orders';
+import Home from './components/home'
 
 
 function App() {
@@ -26,9 +27,9 @@ function App() {
   return (
     <>
     <div>
-      <Navigations token={token} setToken={setToken}/>
+      {location.pathname !== '/' && <Navigations token={token} setToken={setToken}/>}
       <Routes>
-        <Route path="/" element={<h1>Welcome to the Chidren's Bookstore!</h1>}/>
+        <Route path="/" element={<Home />}/>
         <Route path='/login' element={<LogIn setToken={setToken} />} />
         <Route path="/register" element={<Register />} />
         <Route path='/users/me' element={<Account token={token} />} />
