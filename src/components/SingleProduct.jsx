@@ -22,7 +22,7 @@ function SingleProduct({ token, product, setProduct }) {
     getProduct();
   }, []);
 
-  // Get current user info when component loads - to see if they have already purchased the product, can leave a review, etc. 
+ 
 
   useEffect(() => {
     if (token) {
@@ -84,41 +84,37 @@ function SingleProduct({ token, product, setProduct }) {
     }
   };
 
-  // Instand product purchase 
+
 
   async function handleInstantPurchase() {
-    try {
-      const res = await fetch("http://localhost:3000/api/orders", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          userId: 1,
-          items: [
-            {
-              bookId: product.id,
-              quantity: 1,
-              price: product.price,
-            },
-          ],
-        }),
-      });
+  try {
+    const res = await fetch("http://localhost:3000/orders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        user_id: currentUser?.id,
+        date: new Date().toISOString(),
+        note: `Purchased ${product.title}`,
+      }),
+    });
 
-      const data = await res.json();
 
-      if (res.ok) {
-        navigate("/orders");
-      } else {
-        console.error(data);
-        alert("Failed to place order.");
-      }
-    } catch (err) {
-      console.error("Error placing order:", err);
-      alert("Error placing order.");
+    const text = await res.text();
+    console.log("Server response:", text);
+
+    if (res.ok) {
+      navigate("/orders");
+    } else {
+      alert("Failed to place order.");
     }
+  } catch (err) {
+    console.error("Error placing order:", err);
+    alert("Error placing order.");
   }
+}
 
   const handleReviewSubmitted = (reviewData, action) => {
     if (action === 'deleted') {
@@ -131,11 +127,11 @@ function SingleProduct({ token, product, setProduct }) {
       setShowReviewForm(false);
     }
     
-    // Refresh the review list (you could add a ref to ReviewList to call fetchReviews)
+
   };
 
   const handleEditReview = (review) => {
-    // Only allow editing if it's the current user's review
+
     if (currentUser && review.user_id === currentUser.id) {
       setEditingReview(review);
       setShowReviewForm(true);
