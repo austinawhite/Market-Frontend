@@ -46,42 +46,44 @@ function SingleProduct({ token, product, setProduct }) {
   };
 
   const checkUserReview = async () => {
-    try {
-      const response = await fetch(`http://localhost:3000/reviews/user/${id}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      });
-      
-      if (response.ok) {
-        const review = await response.json();
-        setUserReview(review);
-      }
-    } catch (error) {
-      console.error("Error checking user review:", error);
+  try {
+    const response = await fetch(`http://localhost:3000/reviews/user-product/${id}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+    
+    if (response.ok) {
+      const review = await response.json();
+      setUserReview(review);
+    } else if (response.status === 404) {
+      setUserReview(null); // No review found
     }
-  };
+  } catch (error) {
+    console.error("Error checking user review:", error);
+  }
+};
 
   const checkPurchaseHistory = async () => {
-    try {
-      const response = await fetch(`http://localhost:3000/orders`, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      });
-      
-      if (response.ok) {
-        const orders = await response.json();
-        // Check if user has purchased this product
-        const purchased = orders.some(order => 
-          order.items && order.items.some(item => item.bookId === parseInt(id))
-        );
-        setHasPurchased(purchased);
-      }
-    } catch (error) {
-      console.error("Error checking purchase history:", error);
+  try {
+    const response = await fetch(`http://localhost:3000/orders`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+    
+    if (response.ok) {
+      const orders = await response.json();
+      // Check if user has purchased this product by looking in the note
+      const purchased = orders.some(order => 
+        order.note && order.note.includes(product.title)
+      );
+      setHasPurchased(purchased);
     }
-  };
+  } catch (error) {
+    console.error("Error checking purchase history:", error);
+  }
+};
 
 
 

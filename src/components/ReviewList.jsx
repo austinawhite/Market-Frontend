@@ -26,7 +26,7 @@ export default function ReviewList({ productId, currentUserId, onEditReview }) {
       const data = await response.json();
       
       
-      // Ensure rating is converted to a number
+      // Convert rating to a number
       const processedReviews = data.map(review => ({
         ...review,
         rating: Number(review.rating)
@@ -50,7 +50,7 @@ export default function ReviewList({ productId, currentUserId, onEditReview }) {
   };
 
   const renderStars = (rating) => {
-    // Convert rating to number and ensure it's valid (1-5)
+    // ratings should be between 1 and 5
     const numericRating = Number(rating);
     const validRating = isNaN(numericRating) ? 0 : Math.min(Math.max(numericRating, 0), 5);
     
