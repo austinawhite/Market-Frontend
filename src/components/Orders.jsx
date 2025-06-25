@@ -38,8 +38,7 @@ export default function Orders({ token }) {
     Date: {new Date(order.date).toLocaleDateString()}<br />
     Note: {order.note || '—'}
   </li>
-))}
-        </ul>
+))}        </ul>
       )}
     </div>
   );
