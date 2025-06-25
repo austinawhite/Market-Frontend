@@ -16,7 +16,7 @@ export default function ReviewList({ productId, currentUserId, onEditReview }) {
       setLoading(true);
       setError(null);
       
-      // Fetch reviews for this product - following your URL pattern
+      // Fetch reviews for this product
       const response = await fetch(`http://localhost:3000/reviews/product/${productId}`);
       
       if (!response.ok) {
@@ -24,7 +24,17 @@ export default function ReviewList({ productId, currentUserId, onEditReview }) {
       }
       
       const data = await response.json();
-      setReviews(data);
+      
+      
+      // Ensure rating is converted to a number
+      const processedReviews = data.map(review => ({
+        ...review,
+        rating: Number(review.rating)
+      }));
+      
+      console.log('Processed reviews:', processedReviews);
+      
+      setReviews(processedReviews);
     } catch (err) {
       console.error('Error fetching reviews:', err);
       setError(err.message);
@@ -40,23 +50,18 @@ export default function ReviewList({ productId, currentUserId, onEditReview }) {
   };
 
   const renderStars = (rating) => {
-    const stars = [];
-    for (let i = 1; i <= 5; i++) {
-      stars.push(
-        <span
-          key={i}
-          className={`text-xl ${i <= rating ? 'text-yellow-400' : 'text-gray-300'}`}
-        >
-          ★
-        </span>
-      );
+    // Convert rating to number and ensure it's valid (1-5)
+    const numericRating = Number(rating);
+    const validRating = isNaN(numericRating) ? 0 : Math.min(Math.max(numericRating, 0), 5);
+    
+    // loop to determine the number of stars to show
+    let stars = '';
+    for (let i = 0; i < validRating; i++) {
+      stars += '⭐️';
     }
-    return stars;
+    
+    return <span style={{ fontSize: '1.2em' }}>{stars}</span>;
   };
-
-  if (loading) {
-    return <div>Loading reviews...</div>;
-  }
 
   if (error) {
     return <div>Error loading reviews: {error}</div>;
@@ -89,12 +94,11 @@ export default function ReviewList({ productId, currentUserId, onEditReview }) {
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <div>
                     <strong>{review.username || 'Anonymous'}</strong>
-                    <div>{renderStars(review.rating)}</div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <div>{renderStars(review.rating)}</div>
+                    </div>
                   </div>
                   <div>
-                    <span style={{ fontSize: '0.9em', color: '#666' }}>
-                      {new Date(review.created_at).toLocaleDateString()}
-                    </span>
                     {/* Show edit button only for user's own reviews */}
                     {currentUserId && review.user_id === currentUserId && (
                       <button 
