@@ -11,7 +11,8 @@ export default function LogIn({setToken}){
         e.preventDefault();
         setError("");
 
-        
+        try {
+                    
             const response = await fetch('http://localhost:3000/users/login', {
                 method: "POST",
                 headers: {
@@ -25,13 +26,16 @@ export default function LogIn({setToken}){
       
             const result = await response.json();                  
             if (!response.ok) {
-              throw new Error("Invalid credentials." || result.error);
+                throw new Error("Invalid credentials." || result.error);
             }
             setToken(result.token);
             navigate('/');
          
         }
-
+        catch (err) {
+            setError('Invalid email or password. Please try again.');
+            }
+    }
         return(
         <>
          <div className="login-container">
@@ -54,6 +58,7 @@ export default function LogIn({setToken}){
                 />
             </label>
             <button className="login-button" type="submit">Login</button>
+            {error && <p style={{ color: 'red' }}>{error}</p>}
         </form>
         </div>
         </>
