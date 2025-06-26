@@ -31,14 +31,15 @@ export default function Orders({ token }) {
       {orders.length === 0 ? (
         <p>No orders yet.</p>
       ) : (
-        <ul>
-          {orders.map((order, index) => (
-  <li key={order.id} style={{ marginBottom: '1rem' }}>
-    <strong>Your Order #{index + 1}</strong><br />
-    Date: {new Date(order.date).toLocaleDateString()}<br />
-    Note: {order.note || '—'}
-  </li>
-))}        </ul>
+        <ul style={{ listStyle: "none", padding: 0 }}>
+         {orders.map((order, index) => (
+          <li key={order.id} className="order-card">
+            <strong>Your Order #{index + 1}</strong><br />
+            <p>Date: {new Date(order.date).toLocaleDateString()}</p>
+            <p>Note: {order.note || '—'}</p>
+          </li>
+          ))}
+        </ul>
       )}
     </div>
   );
