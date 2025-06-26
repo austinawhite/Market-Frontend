@@ -45,6 +45,10 @@ body {
 
 /* CSS for Homepage */
 
+.homepage-content button {
+  margin: 0.5rem 0;
+}
+
 .homepage-main {
   display: flex;
   flex-direction: row;
