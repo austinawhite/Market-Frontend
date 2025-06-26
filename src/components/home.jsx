@@ -38,9 +38,9 @@ const Home = () => {
             <h2>Welcome to Our Bookstore!</h2> 
             <p>Step through our enchanted digital doorway and discover books that sparkle with magic! 
             Here, every story is a treasure chest waiting to be opened, filled with talking animals, brave heroes, mysterious castles, and adventures that dance right off the page.</p>
-            <button onClick={handleEnterClick}>Browse Books</button> 
-            <p onClick={handleLoginClick} style={{cursor: 'pointer'}}>Login</p>
-            <p onClick={handleRegisterClick} style={{cursor: 'pointer'}}>Register</p>
+            <button className="button-primary" onClick={handleEnterClick}>Browse Books</button>
+            <button className="button-primary" onClick={handleLoginClick}>Login</button>
+            <button className="button-primary" onClick={handleRegisterClick}>Register</button>
           </div>
         </div>
     

@@ -48,37 +48,45 @@
   display: block;
   text-align: center;
   padding: 40px;
-  background-color: #85decb;
-  width: 350px;
-  margin: auto;
-  margin-top: 50px;
-  border-radius: 7px;
+  background-color: #f1f7f4;
+  width: 400px;
+  margin: 3rem auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   font-family: Georgia, serif;
+  color: #1f4c49; 
 }
 
-.register-container input, .login-container input {
+.register-container input,
+.login-container input {
   width: 90%;
-  padding: 8px;
-  margin: 8px;
-  border: none;
-  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+  border: 2px solid #689693;
+  border-radius: 8px;
   text-align: center;
+  font-size: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  outline: none;
 }
 
-  .login-button, .register-button {
-    background-color: #005c5c;
-    color: white;
-    border: 1px solid white;
-    padding: 6px 20px;
-    font-size: 16px;
-    margin: 10px;
-    border-radius: 5px;
-  }
+ .login-button,
+.register-button {
+  background-color: #1f4c49;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
 
-    .login-button:hover, .register-button:hover {
-    background-color: #1d99d7;
-    border-color: #022d32;
-  }
+.login-button:hover,
+.register-button:hover {
+  background-color: #2f6d6a;
+}
 
 body {
   background-color: #b3f8d2;
