@@ -1,3 +1,7 @@
+body {
+  color: black;
+}
+
 #root {
   margin: 0 auto;
   text-align: center;
@@ -36,7 +40,7 @@
 }
 
 .read-the-docs {
-  color: #888;
+  color: black;
 }
 
 /* CSS for Homepage */
@@ -70,11 +74,11 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  background-color: #1f4c49;
+  background-color: #b3f8d2;
   padding: 20px;
   align-items: center;
   justify-content: center;
-  color:white;
+  color: black;
 }
 
 /* added to stop the menu from appearing on the homepage */
@@ -88,35 +92,71 @@ body.homepage .navigations {
 
 .books {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  padding: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
 }
 
-.books-card{
-  background-color: rgb(241, 247, 244);
-  border-color: #689693;
+.books-card {
+  background-color: rgb(213, 242, 228);
+  border: 2px solid #689693;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 10px;
-  margin: 10px;
-  margin-top: auto;
+  padding: 20px;
+  margin: 10px 0;
   display: flex;
-  height: 400px;
-  align-items: center;
   flex-direction: column;
+  align-items: center;
   justify-content: space-between;
+  height: 500px;
 }
+
+.button-primary {
+  background-color: #1f4c49;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.button-primary:hover {
+  background-color: #2f6d6a;
+}
+
+input[type="text"] {
+  padding: 0.5rem 1rem;
+  border: 2px solid #689693;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin: 1rem 0;
+  width: 250px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.2s ease-in-out;
+}
+
+input[type="text"]:focus {
+  border-color: #1f4c49;
+  outline: none;
+}
+
 
 /* CSS for Orders Page */
 .orders {
+  max-width: 600px;
+  margin: 3rem auto;
   padding: 2rem;
-  background-color: #f1f7f4;
-  min-height: 100vh;
+  background-color: rgb(213, 242, 228);
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: black;
 }
 
 .orders h2 {
-  color: #1f4c49;
+  font-size: 2rem;
   margin-bottom: 1.5rem;
 }
 
@@ -125,24 +165,23 @@ body.homepage .navigations {
   border-left: 5px solid #689693;
   border-radius: 10px;
   padding: 1rem 1.5rem;
-  margin: 1rem auto;
-  max-width: 600px;
+  margin: 1rem 0;
   text-align: left;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: black;
 }
 
 .order-card strong {
   font-size: 1.2rem;
-  color: #1f4c49;
+  color: black;
 }
 
 .order-card p {
   margin: 0.3rem 0;
-  color: #333;
+  color: black;
 }
 
 /* CSS for Single Product Page */
-
 
 .single-product {
   max-width: 600px;
@@ -151,7 +190,7 @@ body.homepage .navigations {
   background-color: #f1f7f4;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  color: #1f4c49;
+  color: black;
 }
 
 .product-title {
@@ -182,6 +221,7 @@ body.homepage .navigations {
 
 .review-section {
   margin-top: 2rem;
+  color: black;
 }
 
 .review-section h3 {
