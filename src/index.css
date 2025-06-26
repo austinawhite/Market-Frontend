@@ -43,3 +43,54 @@
   background-color: #e0e0e0;
   color: #1f4c49;
 }
+
+.register-container, .login-container {
+  display: block;
+  text-align: center;
+  padding: 40px;
+  background-color: #85decb;
+  width: 350px;
+  margin: auto;
+  margin-top: 50px;
+  border-radius: 7px;
+  font-family: Georgia, serif;
+}
+
+.register-container input, .login-container input {
+  width: 90%;
+  padding: 8px;
+  margin: 8px;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+}
+
+  .login-button, .register-button {
+    background-color: #005c5c;
+    color: white;
+    border: 1px solid white;
+    padding: 6px 20px;
+    font-size: 16px;
+    margin: 10px;
+    border-radius: 5px;
+  }
+
+    .login-button:hover, .register-button:hover {
+    background-color: #1d99d7;
+    border-color: #022d32;
+  }
+
+body {
+  background-color: #b3f8d2;
+  margin: 0;
+  padding: 0;
+}
+
+.account-container {
+  display: block;
+  text-align: center;
+  padding: 40px;
+  margin: auto;
+  margin-top: 50px;
+  border-radius: 7px;
+}
