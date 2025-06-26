@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import MyReviews from './MyReviews';
 
 export default function Account({ token }) {
   const [user, setUser] = useState(null);
@@ -36,6 +37,7 @@ export default function Account({ token }) {
       <h3>Username: {user.username} </h3>
       <h4>Token: {token} </h4>
       <h1>Reviews</h1>
+      <MyReviews token={token} />
     </>
   ) : (
     <p>Loading account details...</p>
