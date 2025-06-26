@@ -145,82 +145,65 @@ function SingleProduct({ token, product, setProduct }) {
   };
 
   return (
-    <>
-      <h1>{product.title}</h1>
-      <p>Description: {product.description}</p>
-      <p>Price: ${product.price}</p>
-      
-      <div>
-        {token && (
-          <button onClick={handleInstantPurchase}>Purchase</button>
-        )}
-      </div>
+  <div className="single-product">
+    <h1 className="product-title">{product.title}</h1>
+    <p className="product-description">Description: {product.description}</p>
+    <p className="product-price">Price: ${product.price}</p>
 
-      {/* Reviews Section */}
-      <div style={{ marginTop: '40px' }}>
-        {token && hasPurchased && (
-          <div style={{ marginBottom: '30px' }}>
-            {userReview && !showReviewForm ? (
-              <div>
-                <h3>Your Review</h3>
-                <div style={{ 
-                  border: '1px solid #ddd', 
-                  padding: '15px', 
-                  borderRadius: '5px',
-                  backgroundColor: '#f8f9fa'
-                }}>
-                  <div>Rating: {userReview.rating} stars</div>
-                  <div>Comment: {userReview.comment}</div>
-                  <button 
-                    onClick={() => handleEditReview(userReview)}
-                    style={{ marginTop: '10px' }}
-                  >
-                    Edit Review
-                  </button>
-                </div>
-              </div>
-            ) : showReviewForm ? (
-              <ReviewForm
-                token={token}
-                productId={id}
-                existingReview={editingReview}
-                onReviewSubmitted={handleReviewSubmitted}
-              />
-            ) : (
-              <div>
-                <button onClick={handleStartNewReview}>
-                  Leave a Review
+    {token && (
+      <button className="purchase-button" onClick={handleInstantPurchase}>
+        Purchase
+      </button>
+    )}
+
+    <div className="review-section">
+      {token && hasPurchased && (
+        <div className="user-review">
+          {userReview && !showReviewForm ? (
+            <>
+              <h3>Your Review</h3>
+              <div className="review-card">
+                <div>Rating: {userReview.rating} stars</div>
+                <div>Comment: {userReview.comment}</div>
+                <button onClick={() => handleEditReview(userReview)}>
+                  Edit Review
                 </button>
               </div>
-            )}
-            
-            {showReviewForm && (
-              <button 
-                onClick={() => setShowReviewForm(false)}
-                style={{ marginLeft: '10px' }}
-              >
-                Cancel
-              </button>
-            )}
-          </div>
-        )}
+            </>
+          ) : showReviewForm ? (
+            <ReviewForm
+              token={token}
+              productId={id}
+              existingReview={editingReview}
+              onReviewSubmitted={handleReviewSubmitted}
+            />
+          ) : (
+            <button onClick={handleStartNewReview}>Leave a Review</button>
+          )}
 
-        {token && !hasPurchased && (
-          <div style={{ marginBottom: '30px', padding: '15px', backgroundColor: '#fff3cd', borderRadius: '5px' }}>
-            <p>Purchase this book to leave a review!</p>
-          </div>
-        )}
+          {showReviewForm && (
+            <button onClick={() => setShowReviewForm(false)}>
+              Cancel
+            </button>
+          )}
+        </div>
+      )}
 
-        {/* All Reviews */}
-        <ReviewList
-          productId={id}
-          token={token}
-          currentUserId={currentUser?.id}
-          onEditReview={handleEditReview}
-        />
-      </div>
-    </>
-  );
+      {token && !hasPurchased && (
+        <div className="not-purchased-message">
+          <p>Purchase this book to leave a review!</p>
+        </div>
+      )}
+
+      <ReviewList
+        productId={id}
+        token={token}
+        currentUserId={currentUser?.id}
+        onEditReview={handleEditReview}
+      />
+    </div>
+  </div>
+);
 }
 
 export default SingleProduct;
